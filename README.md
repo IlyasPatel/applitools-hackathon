@@ -2,7 +2,7 @@
 
 ### Getting Started
 
-`git clone ...`
+`git clone https://github.com/IlyasPatel/applitools-hackathon`
 
 `mvn clean install`
 
@@ -15,7 +15,7 @@
 
 ### Applitools Test Results
 
-'Link'
+[Applitools Test Results](https://www.example.com)
 
 ### Versions Used
 ##### - Java 8 
@@ -55,9 +55,3 @@ result summary {
 	matches=0
 }
 ```
-
-
-
-Scenario two - would normally break this out into a separate test
-
-Scenario 3 doesn't fully confirm the data is intact
