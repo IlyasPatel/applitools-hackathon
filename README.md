@@ -37,7 +37,7 @@ I put them as static variables.
 
 ### What I could not get working
 
-I could not get the below working, it kept returning empty results. 
+- I could not get the below working, it kept returning empty results. 
 ```
 TestResultsSummary allTestResults = runner.getAllTestResults();
 ```
@@ -56,6 +56,6 @@ result summary {
 }
 ```
 
-I found the batch recommendation confusing in scenario two. I used a batch for scenario two and four but the final
+- I found the batch recommendation confusing in scenario two. I used a batch for scenario two and four but the final
 test results also need to go into a batch as requested. I couldn't find a way of batching the two test scenarios 
 with the final results.
