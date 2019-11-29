@@ -16,7 +16,9 @@
 ### Applitools Test Results
 
 [Applitools Test Results](https://eyes.applitools.com/app/test-results/00000251827257996512/?accountId=95HefRuux0G_ppJdVwdZAg~~)
+
 [Base Results](https://eyes.applitools.com/app/test-results/00000251827258195401/?accountId=95HefRuux0G_ppJdVwdZAg~~)
+
 ### Versions Used
 ##### - Java 8 
 ##### - Chrome 78.0.3904.97
