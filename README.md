@@ -21,6 +21,7 @@
 
 ### Versions Used
 ##### - Java 8 
+##### - Maven 3.6.0
 ##### - Chrome 78.0.3904.97
 
 
