@@ -144,7 +144,7 @@ public class TraditionalTests {
         // Given
         String usernameInput = stringUtils.makeStringEmpty(username);
         String passwordInput = stringUtils.makeStringEmpty(password);
-        // TODO Visual bug on the 3rd attempt.
+        
         loginPageSteps.openLoginForm(URL_V2);
 
         // When
