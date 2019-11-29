@@ -4,6 +4,10 @@
 
 `git clone https://github.com/IlyasPatel/applitools-hackathon`
 
+`cd applitools-hackathon`
+
+`chmod 755 chromedriver` (TO MAKE CHROMEDRIVER AN EXECUTABLE)
+
 `mvn clean install`
 
 #### Test Location
