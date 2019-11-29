@@ -29,6 +29,9 @@ public class TraditionalTests {
     private static final String URL_V2 = "https://demo.applitools.com/hackathonV2.html";
     private static final String URL_V2_WITH_ADS = "https://demo.applitools.com/hackathonV2.html?showAd=true";
 
+    private static final String VALID_USERNAME = "anyUsername";
+    private static final String VALID_PASSWORD = "anyPassword";
+
     private WebDriver webDriver;
 
     private LoginPageSteps loginPageSteps;
@@ -118,7 +121,7 @@ public class TraditionalTests {
                 () -> LoginFormAssert.assertThat(actualRememberMeLabel).rememberMeTextIs("Remember Me"),
                 () -> LoginFormAssert.assertThat(actualRememberMeFieldType).rememberMeFieldIsCheckbox()
 
-
+                // Comment above to explain why this is commented out.
                 //() -> LoginFormIconAssert.assertThat(actualUsernameIcon).usernameIconIsDisplayed(),
                 //() -> LoginFormIconAssert.assertThat(actualPasswordIcon).passwordIconIsDisplayed(),
                 //() -> LoginFormIconAssert.assertThat(actualTwitterImageDisplayed).twitterImageIsDisplayed(),
@@ -126,6 +129,7 @@ public class TraditionalTests {
                 //() -> LoginFormIconAssert.assertThat(actualLinkedInImageDisplayed).linkedInImageIsDisplayed()
         );
     }
+
 
     @ParameterizedTest
     @CsvSource(value = {
@@ -154,6 +158,7 @@ public class TraditionalTests {
                 .isEqualTo(expected);
     }
 
+
     @Test
     @DisplayName("Scenario Two - Success outcome")
     void shouldConfirmCustomerCanLogin_when_correctCredentialsAreEntered() {
@@ -174,6 +179,7 @@ public class TraditionalTests {
                 .isEqualTo(expected);
     }
 
+
     @Test
     @DisplayName("Scenario Three - Amounts in ascending order")
     void shouldConfirmTheAmountsAreInAscendingOrder_when_selectingTheAmountsHeaderFromRecentTransactions() {
@@ -189,14 +195,13 @@ public class TraditionalTests {
         RecentTransactionsAssert.assertThat(actual).amountsColumnIsInAscendingOrder();
     }
 
+
     @Test
     @DisplayName("Scenario Three - Table data in order after ordering by amounts")
     void shouldConfirmTheTableDataIsIntact_when_selectingTheAmountsHeaderFromRecentTransactions() {
 
         // Given
-        loginPageSteps.openLoginForm(URL_V2);
-        loginPageSteps.submitCredentials("Jack", "g0mez");
-        loggedInSteps.waitForCustomerNameToBeDisplayed();
+        loginPageSteps.login(URL_V2, VALID_USERNAME, VALID_PASSWORD);
 
         List<TransactionsTable> originalRecentTransactions = applicationSteps.getRecentTransactions();
 
@@ -206,8 +211,9 @@ public class TraditionalTests {
         RecentTransactionsAssert.assertThat(arrangedTransactions).isIntact(originalRecentTransactions);
     }
 
+
     @Test
-    @DisplayName("Scenario Four")
+    @DisplayName("Scenario Four - Compare chart data")
     void shouldConfirmTheChartDataFor2019IsAdded_when_selectingShowDataForNextYear() {
         /*
             Unable to automate this as it is not possible to access the Canvas data.
@@ -216,13 +222,14 @@ public class TraditionalTests {
          */
     }
 
+
     @Test
     @DisplayName("Scenario Five")
     void shouldConfirmTwoAdsAreDisplayed_when_loggedIn() {
 
         // When
         loginPageSteps.openLoginFormWithAds(URL_V2_WITH_ADS);
-        loginPageSteps.submitCredentials("anyUsername", "anyPassword");
+        loginPageSteps.submitCredentials(VALID_USERNAME, VALID_PASSWORD);
 
         // Then
         boolean isAdOneDisplayed = applicationSteps.isAdOneDisplayed();

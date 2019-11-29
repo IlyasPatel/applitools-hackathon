@@ -30,6 +30,9 @@ public class V1_VisualAITests {
     private static final String APPLITOOLS_APPLICATION_NAME = "Hackathon App";
     private static final RectangleSize APPLITOOLS_VIEW_PORT_SIZE = new RectangleSize(1200, 830);
 
+    private static final String VALID_USERNAME = "anyUsername";
+    private static final String VALID_PASSWORD = "anyPassword";
+
     private EyesRunner runner;
     private Eyes eyes;
 
@@ -124,9 +127,9 @@ public class V1_VisualAITests {
         eyes.setForceFullPageScreenshot(true);
         eyes.setHideScrollbars(true);
 
-        eyes.open(webDriver, APPLITOOLS_APPLICATION_NAME, "Scenario Three - Transaction Amounts in ascending order", APPLITOOLS_VIEW_PORT_SIZE);
+        eyes.open(webDriver, APPLITOOLS_APPLICATION_NAME, "Scenario Three - Transaction amounts in ascending order", APPLITOOLS_VIEW_PORT_SIZE);
 
-        loginPageSteps.login(URL_V1, "Jack", "g0mez");
+        loginPageSteps.login(URL_V1, VALID_USERNAME, VALID_PASSWORD);
 
         // When
         applicationSteps.arrangeAndGetRecentTransactionsByAmount();
@@ -135,9 +138,10 @@ public class V1_VisualAITests {
         eyes.checkWindow("Recent Transactions Table");
     }
 
+
     @Test
-    @DisplayName("Scenario Four")
-    void shouldConfirmTheChartDataFor2019IsAdded_when_selectingShowDataForNextYear() {
+    @DisplayName("Scenario Four - Compare chart data")
+    void shouldConfirmTheChartDataIsVisuallyCorrect_when_comparingChartData() {
         /*
             Ideally I would like to wait for HTML Canvas to finish loading which doesn't seem to be possible.
 
@@ -145,19 +149,34 @@ public class V1_VisualAITests {
          */
 
         // Given
-        eyes.open(webDriver, APPLITOOLS_APPLICATION_NAME, "Scenario Four - Transaction amounts in ascending order", APPLITOOLS_VIEW_PORT_SIZE);
+        eyes.open(webDriver, APPLITOOLS_APPLICATION_NAME, "Scenario Four - Compare chart data", APPLITOOLS_VIEW_PORT_SIZE);
 
-        loginPageSteps.login(URL_V1, "Jack", "g0mez");
+        loginPageSteps.login(URL_V1, VALID_USERNAME, VALID_PASSWORD);
 
         applicationSteps.selectCompareExpenses();
 
         // Then
         eyes.checkWindow("Expenses and Forecasts Comparison");
+    }
 
+
+    @Test
+    @DisplayName("Scenario Four - Compare chart data when adding data for next year")
+    void shouldConfirmTheChartDataFor2019IsAdded_when_selectingShowDataForNextYear() {
+
+        // Given
+        eyes.open(webDriver, APPLITOOLS_APPLICATION_NAME, "Scenario Four - Compare chart data when adding data for next year", APPLITOOLS_VIEW_PORT_SIZE);
+
+        loginPageSteps.login(URL_V1, VALID_USERNAME, VALID_PASSWORD);
+
+        applicationSteps.selectCompareExpenses();
+
+        // Then
         applicationSteps.showDataForNextYear();
 
         eyes.checkWindow("Expenses and Forecasts Comparison For Next Year");
     }
+
 
     @Test
     @DisplayName("Scenario Five")
@@ -168,7 +187,7 @@ public class V1_VisualAITests {
 
         // When
         loginPageSteps.openLoginFormWithAds(URL_V1_WITH_ADS);
-        loginPageSteps.submitCredentials("anyUsername", "anyPassword");
+        loginPageSteps.submitCredentials(VALID_USERNAME, VALID_PASSWORD);
 
         // Then
         eyes.checkWindow("Dynamic content");

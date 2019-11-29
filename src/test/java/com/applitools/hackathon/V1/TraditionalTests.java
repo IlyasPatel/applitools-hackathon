@@ -30,6 +30,9 @@ public class TraditionalTests {
     private static final String URL_V1 = "https://demo.applitools.com/hackathon.html";
     private static final String URL_V1_WITH_ADS = "https://demo.applitools.com/hackathon.html?showAd=true";
 
+    private static final String VALID_USERNAME = "anyUsername";
+    private static final String VALID_PASSWORD = "anyPassword";
+
     private WebDriver webDriver;
 
     private LoginPageSteps loginPageSteps;
@@ -120,6 +123,7 @@ public class TraditionalTests {
         );
     }
 
+
     @ParameterizedTest
     @CsvSource(value = {
             "emptyString : emptyString : Both Username and Password must be present",
@@ -147,6 +151,7 @@ public class TraditionalTests {
                   .isEqualTo(expected);
     }
 
+
     @Test
     @DisplayName("Scenario Two - Success outcome")
     void shouldConfirmCustomerCanLogin_when_correctCredentialsAreEntered() {
@@ -167,6 +172,7 @@ public class TraditionalTests {
                 .isEqualTo(expected);
     }
 
+
     @Test
     @DisplayName("Scenario Three - Transaction Amounts in ascending order")
     void shouldConfirmTheTransactionAmountsAreInAscendingOrder_when_selectingTheAmountsHeaderFromRecentTransactions() {
@@ -182,14 +188,13 @@ public class TraditionalTests {
         RecentTransactionsAssert.assertThat(actual).amountsColumnIsInAscendingOrder();
     }
 
+
     @Test
     @DisplayName("Scenario Three - Table data in order after ordering by amounts")
     void shouldConfirmTheTableDataIsIntact_when_selectingTheAmountsHeaderFromRecentTransactions() {
 
         // Given
-        loginPageSteps.openLoginForm(URL_V1);
-        loginPageSteps.submitCredentials("Jack", "g0mez");
-        loggedInSteps.waitForCustomerNameToBeDisplayed();
+        loginPageSteps.login(URL_V1, VALID_USERNAME, VALID_PASSWORD);
 
         List<TransactionsTable> originalRecentTransactions = applicationSteps.getRecentTransactions();
 
@@ -199,9 +204,10 @@ public class TraditionalTests {
         RecentTransactionsAssert.assertThat(arrangedTransactions).isIntact(originalRecentTransactions);
     }
 
+
     @Test
-    @DisplayName("Scenario Four")
-    void shouldConfirmTheChartDataFor2019IsAdded_when_selectingShowDataForNextYear() {
+    @DisplayName("Scenario Four - Compare chart data")
+    void shouldConfirmTheChartDataIsVisuallyCorrect_when_comparingChartData() {
         /*
             Unable to automate this as it is not possible to access the Canvas data.
 
@@ -209,13 +215,14 @@ public class TraditionalTests {
          */
     }
 
+
     @Test
     @DisplayName("Scenario Five")
     void shouldConfirmTwoAdsAreDisplayed_when_loggedIn() {
 
         // When
         loginPageSteps.openLoginFormWithAds(URL_V1_WITH_ADS);
-        loginPageSteps.submitCredentials("anyUsername", "anyPassword");
+        loginPageSteps.submitCredentials(VALID_USERNAME, VALID_PASSWORD);
 
         // Then
         boolean isAdOneDisplayed = applicationSteps.isAdOneDisplayed();
@@ -226,6 +233,4 @@ public class TraditionalTests {
                 () -> Assertions.assertThat(isAdTwoDisplayed).as("Ad Two is not displayed").isTrue()
         );
     }
-
-
 }
